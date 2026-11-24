@@ -1,0 +1,22 @@
+{
+    "classes": [
+        "daisy",
+        "dandelion",
+        "roses",
+        "sunflowers",
+        "tulips"
+    ],
+    "class_to_idx": {
+        "daisy": 0,
+        "dandelion": 1,
+        "roses": 2,
+        "sunflowers": 3,
+        "tulips": 4
+    },
+    "image_size": 224,
+    "batch_size": 32,
+    "seed": 42,
+    "train_count": 2569,
+    "validation_count": 550,
+    "test_count": 551
+}

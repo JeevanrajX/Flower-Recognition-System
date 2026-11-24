@@ -1,0 +1,28 @@
+
+# Python virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Dataset - do not upload the complete dataset
+dataset/flower_photos/
+
+# Temporary files
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+
+# Model training checkpoints and temporary files
+*.tmp
+*.bak
+
+dataset/flower_photos.tgz
+
+static/uploads/*

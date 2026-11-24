@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flower Recognition System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header>
+            <p class="tag">DEEP LEARNING PROJECT</p>
+
+            <h1>Flower Recognition System</h1>
+
+            <p class="subtitle">
+                Upload a flower image and let MobileNetV2 identify it.
+            </p>
+        </header>
+
+
+        <section class="upload-card">
+
+            <form method="POST" enctype="multipart/form-data">
+
+                <!-- Image Upload Area -->
+
+                <label for="image" class="upload-area">
+
+                    <span class="upload-icon" id="upload-icon">
+                        🌸
+                    </span>
+
+                    <strong id="upload-title">
+                        Choose a flower image
+                    </strong>
+
+                    <span id="upload-hint">
+                        JPG, JPEG, PNG or WEBP · Maximum 10 MB
+                    </span>
+
+                    <!-- Selected Image Preview -->
+
+                    <img
+                        id="selected-preview"
+                        class="selected-preview"
+                        alt="Selected image preview"
+                    >
+
+                </label>
+
+
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept=".jpg,.jpeg,.png,.webp"
+                    required
+                >
+
+
+                <p id="filename">No image selected</p>
+
+
+                <button type="submit">
+                    Recognize Flower
+                </button>
+
+            </form>
+
+
+            <!-- Error Message -->
+
+            {% if error %}
+
+                <div class="error" role="alert">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- Recognition Result -->
+
+            {% if result %}
+
+                <div class="result">
+
+                    <h2>Recognition Result</h2>
+
+
+                    {% if image_url %}
+
+                        <img
+                            src="{{ image_url }}"
+                            alt="Uploaded image"
+                            class="preview"
+                        >
+
+                    {% endif %}
+
+
+                    {% if result.is_flower %}
+
+                        <p class="result-label">
+                            Predicted Flower
+                        </p>
+
+                        <h3>
+                            {{ result.flower | title }}
+                        </h3>
+
+
+                        <div class="confidence">
+                            Confidence: {{ result.confidence }}%
+                        </div>
+
+
+                        <h4>Class probabilities</h4>
+
+
+                        {% for name, probability in result.probabilities.items() %}
+
+                            <div class="probability-row">
+
+                                <span>{{ name | title }}</span>
+
+                                <span>{{ probability }}%</span>
+
+                            </div>
+
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-fill"
+                                    data-width="{{ probability }}"
+                                ></div>
+
+                            </div>
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+                        <div class="rejection">
+
+                            <h3>Not confidently recognized</h3>
+
+                            <p>
+                                {{ result.message }}
+                            </p>
+
+                            <div class="confidence rejected-confidence">
+                                Highest class score:
+                                {{ result.confidence }}%
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <footer>
+            <p>
+                Powered by Python, PyTorch, MobileNetV2 and Flask
+            </p>
+        </footer>
+
+    </main>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        const imageInput =
+            document.getElementById("image");
+
+        const filenameText =
+            document.getElementById("filename");
+
+        const preview =
+            document.getElementById("selected-preview");
+
+        const uploadIcon =
+            document.getElementById("upload-icon");
+
+        const uploadTitle =
+            document.getElementById("upload-title");
+
+        const uploadHint =
+            document.getElementById("upload-hint");
+
+
+        let previewUrl = null;
+
+
+        // Display image immediately after selection
+
+        imageInput.addEventListener("change", function () {
+
+            if (previewUrl) {
+
+                URL.revokeObjectURL(previewUrl);
+
+                previewUrl = null;
+
+            }
+
+
+            if (!this.files || this.files.length === 0) {
+
+                preview.removeAttribute("src");
+
+                preview.classList.remove("visible");
+
+                uploadIcon.style.display = "block";
+
+                uploadTitle.textContent =
+                    "Choose a flower image";
+
+                uploadHint.textContent =
+                    "JPG, JPEG, PNG or WEBP · Maximum 10 MB";
+
+                filenameText.textContent =
+                    "No image selected";
+
+                return;
+
+            }
+
+
+            const file = this.files[0];
+
+
+            filenameText.textContent = file.name;
+
+
+            if (!file.type.startsWith("image/")) {
+
+                filenameText.textContent =
+                    "Please select a valid image file.";
+
+                return;
+
+            }
+
+
+            previewUrl = URL.createObjectURL(file);
+
+            preview.src = previewUrl;
+
+            preview.classList.add("visible");
+
+
+            uploadIcon.style.display = "none";
+
+            uploadTitle.textContent =
+                "Image selected — click to change";
+
+            uploadHint.textContent =
+                "Your image preview";
+
+        });
+
+
+        // Display probability bars without inline CSS templates
+
+        document.querySelectorAll(".progress-fill").forEach(bar => {
+
+            const width = parseFloat(bar.dataset.width);
+
+            if (!isNaN(width)) {
+
+                const safeWidth = Math.min(
+                    100,
+                    Math.max(0, width)
+                );
+
+                bar.style.width = `${safeWidth}%`;
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
