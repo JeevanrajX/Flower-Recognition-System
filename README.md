@@ -440,21 +440,6 @@ The submission includes:
 
 
 
-\### 13. Contact and Project Information
-
-
-
-Project: Flower Recognition System
-
-
-
-Developed by: Jeevanraj M
-
-
-
-Programme: B.Tech – Computer Science and Engineering
-
-
 
 Institution: Sri Manakula Vinayagar Engineering College
 
