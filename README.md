@@ -1,449 +1,356 @@
-\# Flower Recognition System
 
-\## Deep Learning-Based Image Classification Using MobileNetV2
+# 🌸 Flower Recognition System
 
+A deep-learning-based image classification system that identifies five different flower categories using **PyTorch, MobileNetV2, OpenCV and Flask**.
 
+The application allows users to upload flower images through a web interface and predicts the corresponding flower category along with its classification probabilities.
 
-\### 1. Project Overview
+---
 
+## 📌 Project Overview
 
+The Flower Recognition System uses **Transfer Learning** with the MobileNetV2 convolutional neural network (CNN) architecture.
 
-The Flower Recognition System is a deep-learning-based image classification application developed using Python and PyTorch.
+A pretrained ImageNet model is adapted to recognize five flower categories. The trained model is integrated into a Flask web application to provide image-based predictions.
 
+### Supported Flower Categories
 
+1. Daisy
+2. Dandelion
+3. Roses
+4. Sunflowers
+5. Tulips
 
-It uses a pretrained MobileNetV2 convolutional neural network with transfer learning to classify uploaded images into five flower categories:
+---
 
+## 🖥️ Application Homepage
 
+The application provides a simple web interface for uploading flower images and viewing classification results.
 
-\- Daisy
+![Application Homepage](screenshots/homepage.png)
 
-\- Dandelion
+---
 
-\- Roses
+## 📊 Model Evaluation
 
-\- Sunflowers
+The trained model is evaluated using a separate test dataset containing 551 images.
 
-\- Tulips
+### Confusion Matrix
 
+The confusion matrix illustrates the classification performance across all five flower categories.
 
+![Confusion Matrix](screenshots/confusion_matrix.png)
 
-The application provides a web-based interface developed using Flask. Users can upload an image and view the predicted flower category along with class-wise confidence scores.
-
-
-
-\### 2. Performance
-
-
+### Performance Summary
 
 | Evaluation Metric | Result |
-
 |---|---:|
-
-| Dataset size | 3,670 images |
-
-| Training images | 2,569 |
-
-| Validation images | 550 |
-
-| Testing images | 551 |
-
-| Best validation accuracy | 92.18% |
-
-| Test accuracy | 93.10% |
-
-| Correct test predictions | 513 / 551 |
-
-
-
-\### 3. Technology Stack
-
-
-
-\- Python 3.10.11
-
-\- PyTorch
-
-\- Torchvision
-
-\- MobileNetV2
-
-\- Flask
-
-\- OpenCV
-
-\- NumPy
-
-\- Pillow
-
-\- Scikit-learn
-
-\- Matplotlib
-
-
-
-\### 4. Project Structure
-
-
-
-```text
-
-ImageRecognition\_Submission/
-
-│
-
-├── app.py
-
-├── requirements.txt
-
-├── README.md
-
-│
-
-├── src/
-
-│   ├── train.py
-
-│   ├── evaluate.py
-
-│   └── analyze\_errors.py
-
-│
-
-├── models/
-
-│   ├── flower\_classifier.pth
-
-│   ├── evaluation\_report.txt
-
-│   └── confusion\_matrix.png
-
-│
-
-├── templates/
-
-│   └── index.html
-
-│
-
-├── static/
-
-│   └── style.css
-
-│
-
-└── dataset\_metadata.json
-
-```
-
-
-
-Note: The filenames shown under `src/` should be adjusted to match the actual files included in the submission.
-
-
-
-\### 5. System Requirements
-
-
-
-Recommended environment:
-
-
-
-\- Windows 10 or Windows 11
-
-\- Python 3.10.x
-
-\- Minimum 8 GB RAM; 16 GB recommended
-
-\- NVIDIA GPU with compatible CUDA support (optional)
-
-
-
-The trained model can run on a CPU if the application supports CPU device selection. An NVIDIA GPU is not mandatory for inference.
-
-
-
-\### 6. Installation Instructions
-
-
-
-\*\*Step 1 – Install Python\*\*
-
-
-
-Install Python 3.10 from:
-
-
-
-https://www.python.org/downloads/
-
-
-
-Verify installation:
-
-
-
-```powershell
-
-python --version
-
-```
-
-
-
-\*\*Step 2 – Extract the project\*\*
-
-
-
-Extract the submitted ZIP archive into a suitable directory.
-
-
-
-Example:
-
-
-
-```text
-
-D:\\ImageRecognition\_Submission
-
-```
-
-
-
-\*\*Step 3 – Open PowerShell in the project directory\*\*
-
-
-
-```powershell
-
-cd D:\\ImageRecognition\_Submission
-
-```
-
-
-
-\*\*Step 4 – Create a virtual environment\*\*
-
-
-
-```powershell
-
-python -m venv .venv
-
-```
-
-
-
-\*\*Step 5 – Activate the environment\*\*
-
-
-
-```powershell
-
-.\\.venv\\Scripts\\Activate.ps1
-
-```
-
-
-
-If PowerShell blocks activation, run:
-
-
-
-```powershell
-
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
-
-```
-
-
-
-Then activate the environment again.
-
-
-
-\*\*Step 6 – Install dependencies\*\*
-
-
-
-```powershell
-
-python -m pip install --upgrade pip
-
-pip install -r requirements.txt
-
-```
-
-
-
-Important: The requirements file must contain compatible package versions for the target computer. If the submitted environment uses CUDA-specific PyTorch packages, CPU-only or different GPU systems may require an adjusted PyTorch installation.
-
-
-
-\### 7. Running the Application
-
-
-
-Ensure that the trained model exists at:
-
-
-
-```text
-
-models/flower\_classifier.pth
-
-```
-
-
-
-Start the Flask application:
-
-
-
-```powershell
-
-python app.py
-
-```
-
-
-
-Open the following address in a web browser:
-
-
-
-```text
-
-http://127.0.0.1:5000
-
-```
-
-
-
-\### 8. Using the Application
-
-
-
-1\. Open the application in your browser.
-
-2\. Select an image from your computer.
-
-3\. Preview the selected image.
-
-4\. Submit the image for classification.
-
-5\. Wait for the prediction.
-
-6\. View the predicted flower category and confidence scores.
-
-
-
-\### 9. Dataset Information
-
-
-
-The project uses the TensorFlow Flowers dataset.
-
-
+| Validation Accuracy | 92.18% |
+| Test Accuracy | 93.10% |
+| Total Dataset Images | 3,670 |
+| Training Images | 2,569 |
+| Validation Images | 550 |
+| Testing Images | 551 |
+| Number of Classes | 5 |
+| Input Image Size | 224 × 224 |
+
+---
+
+## 📂 Dataset Information
+
+The project uses the **TensorFlow Flowers Dataset**.
 
 Dataset source:
 
+https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz
 
+### Dataset Distribution
 
-https://www.tensorflow.org/datasets/catalog/tf\_flowers
+| Flower Category | Number of Images |
+|---|---:|
+| Daisy | 633 |
+| Dandelion | 898 |
+| Roses | 641 |
+| Sunflowers | 699 |
+| Tulips | 799 |
+| **Total** | **3,670** |
 
+### Dataset Splitting
 
+The dataset is divided into three subsets using stratified sampling.
 
-The original dataset is not included in the compact submission package to reduce archive size.
+| Dataset | Percentage | Images |
+|---|---:|---:|
+| Training | 70% | 2,569 |
+| Validation | 15% | 550 |
+| Testing | 15% | 551 |
+| **Total** | **100%** | **3,670** |
 
+The original dataset images are not included in this repository to keep the repository size manageable.
+
+The dataset metadata is available in:
+
+`dataset/dataset_metadata.json`
+
+---
+
+## 🧠 Model Architecture
+
+### MobileNetV2 – Transfer Learning
+
+MobileNetV2 is a lightweight convolutional neural network designed for efficient image recognition.
+
+The pretrained ImageNet weights are used as the starting point for the flower classification task.
+
+### Model Configuration
+
+- Architecture: MobileNetV2
+- Pretrained weights: ImageNet
+- Classification categories: 5
+- Input image dimensions: 224 × 224
+- Optimizer: AdamW
+- Loss function: Cross Entropy Loss
+- Training framework: PyTorch
+
+### Training Strategy
+
+**Phase 1 – Transfer Learning**
+
+- Load pretrained MobileNetV2 weights.
+- Freeze the feature extraction layers.
+- Replace the original classification layer with a new five-class classifier.
+- Train the new classification layer for 5 epochs.
+
+**Phase 2 – Fine-Tuning**
 
+- Unfreeze the final three feature blocks.
+- Fine-tune the selected layers.
+- Use a lower learning rate.
+- Train for 10 additional epochs.
 
-The trained model checkpoint is included, so the Flask application should not require the original training dataset for normal inference.
+### Data Augmentation
 
+The following augmentation techniques are applied during training:
 
+- Random horizontal flipping
+- Random rotation up to 15 degrees
+- Brightness adjustment
+- Contrast adjustment
+- Saturation adjustment
 
-The dataset is required if the recipient intends to retrain the model or reproduce the complete evaluation workflow.
+### Image Preprocessing
 
+- Resize images to 224 × 224 pixels.
+- Convert images into tensors.
+- Normalize using ImageNet mean and standard deviation.
 
+---
 
-\### 10. Model Information
+## ⚙️ Technologies Used
 
+| Technology | Purpose |
+|---|---|
+| Python | Main programming language |
+| PyTorch | Deep learning framework |
+| Torchvision | Image datasets and pretrained models |
+| MobileNetV2 | Image classification architecture |
+| OpenCV | Image processing |
+| NumPy | Numerical operations |
+| Matplotlib | Visualization |
+| Scikit-learn | Dataset splitting and evaluation |
+| Flask | Web application backend |
+| HTML | Web page structure |
+| CSS | User interface styling |
 
+---
 
-Architecture: MobileNetV2
+## 📁 Project Structure
 
+```text
+Flower-Recognition-System/
+│
+├── dataset/
+│   └── dataset_metadata.json
+│
+├── models/
+│   ├── flower_classifier.pth
+│   ├── confusion_matrix.png
+│   └── evaluation_report.txt
+│
+├── screenshots/
+│   ├── homepage.png
+│   └── confusion_matrix.png
+│
+├── src/
+│   ├── inspect_dataset.py
+│   ├── prepare_dataset.py
+│   ├── train.py
+│   └── evaluate.py
+│
+├── static/
+│   ├── style.css
+│   └── uploads/
+│
+├── templates/
+│   └── index.html
+│
+├── app.py
+├── .gitignore
+└── README.md
+```
 
+---
 
-Training approach: Transfer Learning and Partial Fine-Tuning
+## 🚀 Installation and Setup
 
+### 1. Clone the Repository
 
+```bash
+git clone https://github.com/JeevanrajX/Flower-Recognition-System.git
+```
 
-Input resolution: 224 × 224 pixels
+Navigate to the project directory:
 
+```bash
+cd Flower-Recognition-System
+```
 
+### 2. Create a Virtual Environment
 
-Number of output classes: 5
+```bash
+python -m venv .venv
+```
 
+Activate the environment on Windows:
 
+```powershell
+.venv\Scripts\activate
+```
 
-Optimizer: AdamW
+### 3. Install Dependencies
 
+Install the required Python packages:
 
+```bash
+pip install torch torchvision
+pip install numpy matplotlib pillow opencv-python flask scikit-learn tqdm
+```
 
-Loss function: Cross-Entropy Loss
+---
 
+## ▶️ Running the Application
 
+Once the dependencies are installed, start the Flask application:
 
-Batch size: 32
+```bash
+python app.py
+```
 
+Open your browser and navigate to:
 
+http://127.0.0.1:5000
 
-Training schedule:
+Upload a flower image through the application interface to obtain its predicted category and classification probabilities.
 
-\- 5 epochs of classifier warm-up.
+**Note:** The trained model checkpoint is already included in the repository. The original dataset is required only when preparing or retraining the model, not for normal inference.
 
-\- 10 epochs of partial fine-tuning.
+---
 
+## 🔬 Training the Model
 
+To reproduce the training process, first download and extract the TensorFlow Flowers dataset.
 
-\### 11. Evaluation Artifacts
+Place the extracted folder in:
 
+```text
+dataset/flower_photos/
+```
 
+Run the dataset preparation script:
 
-The submission includes:
+```bash
+python src/prepare_dataset.py
+```
 
+Train the model:
 
+```bash
+python src/train.py
+```
 
-\- `models/evaluation\_report.txt` – Classification metrics.
+Evaluate the trained model:
 
-\- `models/confusion\_matrix.png` – Confusion matrix visualization.
+```bash
+python src/evaluate.py
+```
 
-\- `models/flower\_classifier.pth` – Trained model checkpoint.
+The trained model and evaluation outputs are stored in the `models/` directory.
 
+---
 
+## 📈 Results
 
-\### 12. Important Notes and Limitations
+The trained MobileNetV2 model achieved **93.10% test accuracy** on 551 previously unseen test images.
 
+The evaluation report includes:
 
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Classification report
+- Confusion matrix
 
-\- The model is designed to classify five flower categories.
+Detailed evaluation results are available in:
 
-\- It is not a general-purpose object recognition model.
+`models/evaluation_report.txt`
 
-\- Non-flower images may still be assigned one of the five flower labels.
+Confusion matrix:
 
-\- Confidence scores should not be interpreted as guaranteed probabilities that an image is a flower.
+`models/confusion_matrix.png`
 
-\- GPU acceleration is optional for inference, subject to the application's device configuration.
+---
 
+## ⚠️ Limitations
 
+- The model is trained to recognize only five flower categories.
+- Non-flower images may still be classified as one of the supported flower categories.
+- Prediction confidence alone does not guarantee that an uploaded image contains a flower.
+- Performance may vary with image quality, lighting, backgrounds and unfamiliar flower varieties.
 
+---
 
-Institution: Sri Manakula Vinayagar Engineering College
+## 🔮 Future Improvements
 
+- Introduce a non-flower image detection category.
+- Expand the dataset with additional flower species.
+- Improve generalization to unseen images.
+- Improve prediction reliability.
+- Optimize inference speed and deployment.
+- Explore lightweight deployment options.
 
+---
 
-Internship Task: Image Recognition System
+## 📚 References
 
+1. TensorFlow Flowers Dataset:  
+   https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz
+
+2. PyTorch Documentation:  
+   https://pytorch.org/docs/stable/index.html
+
+3. Torchvision Documentation:  
+   https://pytorch.org/vision/stable/index.html
+
+4. MobileNetV2 Research Paper:  
+   https://arxiv.org/abs/1801.04381
+
+5. Flask Documentation:  
+   https://flask.palletsprojects.com/
+
+---
+
+**Project:** Flower Recognition System  
+**Domain:** Deep Learning and Computer Vision  
+**Framework:** PyTorch and Flask  
+**Model:** MobileNetV2
